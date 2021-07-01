@@ -68,10 +68,10 @@ function sgmat_wB(S::AbstractArray{Int, 2}, w::AbstractArray{T1}, smat::Abstract
 end
 
 """
-weighted Savitzky Golay filter
+    SG(y::Array{T, 1}; halfwin=1, d=2)   
+    SG(y::Array{T, 1}, w::Array{T2, 1}; halfwin=1, d=2)
 
-SG(y::Array{T, 1}, halfwin=1, d=2)   
-SG(y::Array{T, 1}, w::Array{T2, 1}, halfwin=1, d=2)
+weighted Savitzky Golay filter
 
 # Examples
 y = rand(100)

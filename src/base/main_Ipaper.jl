@@ -69,8 +69,29 @@ end
 """
     open pdf file in SumatraPDF
 """
-function show_pdf(file)
+macro show_pdf(file)
     run(`/mnt/c/WINDOWS/SumatraPDF.exe $file`; wait = false)
+    nothing
+end
+
+macro show_file(file)
+    run(`cmd /c $file`; wait = false)
+    nothing
+end
+
+macro methods(func)
+    :(methods($func))
+end
+
+macro savefig(plt::Plots.Plot, fn::AbstractString, show = true)
+    :(savefig($plt, $fn))
+    if (show); :(@show_file($fn)); end
+end
+
+macro savefig(fn::AbstractString, show = true)
+    :(savefig($fn))
+    println("jldsave")
+    if (show); :(@show_file($fn)); end
 end
 
 # # import PyCall
@@ -90,6 +111,9 @@ set_value!(x, con, value) = begin
     Nothing
 end
 
-
-export match2, split, str_extract, list_dir, CartesianIndex2Int, merge_pdf, show_pdf, get_dn, 
+export match2, split, str_extract, list_dir, CartesianIndex2Int, merge_pdf, 
+    @show_file, @show_pdf, 
+    @methods,
+    @savefig,
+    get_dn, 
     set_value!

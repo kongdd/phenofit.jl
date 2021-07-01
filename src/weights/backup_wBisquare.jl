@@ -18,7 +18,7 @@ function wBisquare(y::Array{T,1}, yfit::Array{T,1}, w::Array{T2,1};
     wmin::Float64 = 0.05, 
     step::Float64 = 0.5, 
     to_upper = true) where {T <: AbstractFloat, T2 <: AbstractFloat}
-
+    
     ymax = maximum(yfit)
     ymin = minimum(yfit)
     A = ymax - ymin;

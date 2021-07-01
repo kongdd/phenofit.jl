@@ -38,10 +38,12 @@ Init the Whittaker parameter lambda
 - coef: coefficients in the order of interception, mean, sd, skewness and kurtosis, 
     e.g. [0.9809, 0.7247, -2.6752, -0.3854, -0.0604].
 
-@examples
+# Examples
+```jldoctest
 y = rand(100)
 coef = [0.9809, 0.7247, -2.6752, -0.3854, -0.0604];
 lambda_init(y, coef)
+```
 """
 function lambda_init(x::Array{T, 1}, coef::Array{Float64, 1}) where T <: AbstractFloat
     x_mean = mean(x)

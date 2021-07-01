@@ -1,5 +1,7 @@
 module phenofit
 
+using StaticArrays: zeros
+using Dates: floor
 using Plots
 # using JLD2
 
@@ -29,7 +31,7 @@ include("smooth_whittaker/smooth_whit_GEE.jl")
 # include("smooth_whittaker/smooth_SG.jl")
 include("smooth_SG/smooth_SG.jl")
 
-include("season/findpeaks.jl")
+include("season/season.jl")
 
 include("weights/wBisquare.jl")
 include("weights/wTSM.jl")

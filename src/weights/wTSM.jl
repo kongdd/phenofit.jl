@@ -1,24 +1,25 @@
 """
-    wTSM(y, yfit, w, iter, nptperyear, wfact)
+    wTSM(y::Array{T,1}, yfit::Array{T,1}, w::Array{T,1}; 
+        iter::Integer = 2, nptperyear::Integer = 46, wfact::Float64 = 2.0) 
 
 Weight updating method in TIMESAT
 
 # Author
 Translated from TIMESAT to Julia by Dongdong Kong (20200808)
 """
-function wTSM(y::Array{T,1}, yfit::Array{T,1}, w::Array{T,1};
-                   iter::Integer = 2, nptperyear::Integer = 46, wfact::Float64 = 2.0) where {T <: AbstractFloat}
+function wTSM(y::AbstractArray{T,1}, yfit::AbstractArray{T,1}, w::AbstractArray{T,1};
+    iter::Integer = 2, nptperyear::Integer = 46, wfact::Float64 = 0.5) where {T <: AbstractFloat}
+
     n = length(y)
     m = sum(w .> 0.5)
     w_ceil = ceil.(w)
-    wnew = zero(w)
+    wnew = deepcopy(w)
 
-    yfit = y
+    # yfit = y
     yfitmean = sum(yfit .* w_ceil / m)
-    yfitsd = sqrt(sum(@. ((yfit - yfitmean) * w_ceil )^2)/(m-1))
-
+    yfitstd = sqrt(sum(@. ((yfit - yfitmean) * w_ceil )^2)/(m-1))
     deltaT = fld(nptperyear, 7)
-
+    
     @inbounds for i = 1:n
         m1 = max(1, i - deltaT);
         m2 = min(n, i + deltaT);

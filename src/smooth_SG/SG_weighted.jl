@@ -33,7 +33,11 @@ function sgmat_wB!(w::AbstractArray{T1}, m::mod_SG) where T1 <: Real
     multiply_col!(m.B, w)
 end
 
-# weighted Savitzky Golay filter
+"""
+    wSG(y::Array{T, 1}, w::Array{T2, 1}; halfwin=1, d=2)
+
+weighted Savitzky Golay filter
+"""
 function wSG(y::Array{T, 1}, w::Array{T2, 1}; halfwin=1, d=2) where {T <: Real, T2 <: Real}
     # constrain the w_min, unless it will lead to matrix division erorr
     w = deepcopy(w) 

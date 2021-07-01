@@ -5,12 +5,12 @@ fidelity(y, z, w) = log(sum(@.(w*(y-z)^2)))
 roughness(z, d = 2) = log(sum( diffs(z, d) .^ 2 ))
 
 """
-lambda = lambda_vcurve(y, w, is_plot = false)
+    lambda_vcurve(y::Array{T,1}, w::Array{T2,1}; 
+    is_plot = false, lg_lambda_min = 0.1, lg_lambda_max = 3)
 
-#return
+# Return
 - `lambda`: optimal lambda
 """
-
 function lambda_vcurve(y::Array{T,1}, w::Array{T2,1}; 
     is_plot = false, lg_lambda_min = 0.1, lg_lambda_max = 3) where { 
         T <: Real, T2 <: Real }
@@ -50,9 +50,10 @@ function lambda_vcurve(y::Array{T,1}, w::Array{T2,1};
 end
 
 """
-lambda = v_curve(y, w, is_plot = false)
+    lambda_cv(y::Array{T,1}, w::Array{T2,1}; 
+    is_plot = false, lg_lambda_min = 0.1, lg_lambda_max = 3)
 
-#return
+# Return
 - `lambda`: optimal lambda
 """
 function lambda_cv(y::Array{T,1}, w::Array{T2,1}; 
@@ -99,7 +100,7 @@ function plot_lambda(y, w, lg_lambdas, cvs)
         m = (10, :transparent, stroke(1, "red")),
         legend = false)
     vline!(p_v, [lg_lambdas[k]], color = "red", linestyle = :dash)
-
+    
     xlim = (0, length(y))
     p1   = plot(y, xlim = xlim, frame = :box)
     z_2,  = whit2(y, w, 2.0)
